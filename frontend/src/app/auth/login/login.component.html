@@ -1,1 +1,36 @@
-<p>login works!</p>
+<div class="login-container">
+  <div class="login-wrapper">
+    <div class="login-left">
+      <h1>Technology Solutions</h1>
+      <app-message #message></app-message>
+
+      <form [formGroup]="loginForm" (ngSubmit)="onSubmit()">
+        <div class="input-group">
+          <label for="cpf">CPF:</label>
+          <input id="cpf" formControlName="cpf" mask="000.000.000-00" placeholder="000.000.000-00" />
+          <div *ngIf="f['cpf']?.invalid && f['cpf']?.touched" class="error">
+            CPF inválido
+          </div>
+        </div>
+
+        <div class="input-group">
+          <label for="password">Senha:</label>
+          <div class="password-wrapper">
+            <input [type]="showPassword ? 'text' : 'password'" id="password" formControlName="password" placeholder="Digite sua senha" />
+            <button type="button" class="toggle-password" (click)="togglePasswordVisibility()">
+              <span class="material-icons">{{ showPassword ? 'visibility' : 'visibility_off' }}</span>
+            </button>
+          </div>
+
+        </div>
+
+        <button type="submit" [disabled]="loginForm.invalid">Entrar</button>
+      </form>
+      <button class="forgot-password" (click)="onForgotPassword()">Esqueci minha senha</button>
+    </div>
+
+    <div class="login-right">
+      <img src="assets/logo.png" alt="Imagem da empresa">
+    </div>
+  </div>
+</div>
