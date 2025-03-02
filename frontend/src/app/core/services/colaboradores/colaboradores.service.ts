@@ -34,7 +34,6 @@ export class ColaboradoresService {
   public getInitialData(): Observable<any> {
     const token = localStorage.getItem('token');
 
-    console.log(token);
 
     let headers = new HttpHeaders();
     if (token) {

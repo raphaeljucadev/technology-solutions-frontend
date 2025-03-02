@@ -15,6 +15,7 @@ import { InformacoesComponent } from './app/dashboard/pages/gerencial/informacoe
 import { GerencialComponent } from './app/dashboard/pages/gerencial/gerencial.component';
 import { provideAnimations } from '@angular/platform-browser/animations';
 import { authGuard } from './app/core/services/auth/auth.guard';
+import { CadastroComponent } from './app/cadastro/cadastro.component';
 
 bootstrapApplication(AppComponent, {
   providers: [
@@ -22,6 +23,7 @@ bootstrapApplication(AppComponent, {
     importProvidersFrom(HttpClientModule),
     provideRouter([
       { path: '', redirectTo: 'login', pathMatch: 'full' },
+      { path: 'cadastro', component: CadastroComponent },
       { path: 'login', component: LoginComponent },
       {
         path: 'dashboard',

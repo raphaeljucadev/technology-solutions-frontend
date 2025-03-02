@@ -96,7 +96,7 @@ private router = inject(Router);
         return response.data;
       })
     ).subscribe(data => {
-      this.colaboradoresSubject.next(data);
+      this.colaboradoresSubject.next(data || []);
     });
   }
 
