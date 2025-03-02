@@ -15,5 +15,9 @@ export const API_ENDPOINTS = {
     user_types: `${BASE_URL}/user-types`,
 
   },
+  COLABORADORES: {
+    colaborador: `${BASE_URL}/colaboradores`,
+
+  },
 
 };

@@ -1,0 +1,36 @@
+.container {
+  max-width: 800px;
+  margin: auto;
+  text-align: center;
+}
+
+table {
+  width: 100%;
+  margin-top: 20px;
+  border-collapse: collapse;
+}
+
+th, td {
+  border: 1px solid #ddd;
+  padding: 10px;
+}
+
+th {
+  background-color: #f4f4f4;
+}
+
+.pagination {
+  margin-top: 10px;
+}
+
+button {
+  margin: 5px;
+  padding: 8px;
+  border: none;
+  cursor: pointer;
+}
+
+button:disabled {
+  opacity: 0.5;
+  cursor: not-allowed;
+}
