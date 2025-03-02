@@ -1,0 +1,7 @@
+
+.sidebar-menu mat-icon { /* Adicione esta linha */
+  color: white !important;
+}
+:root {
+  --mdc-list-list-item-label-text-color: white;
+}

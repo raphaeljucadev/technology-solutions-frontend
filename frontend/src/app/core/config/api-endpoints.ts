@@ -4,4 +4,16 @@ export const API_ENDPOINTS = {
   AUTH: {
     LOGIN: `${BASE_URL}/login`,
   },
+
+  CONVITES: {
+    CONVITE: `${BASE_URL}/convites`,
+    STATUS_CONVITE: `${BASE_URL}/convites`,
+    CONVITE_GET_TOKEN: `${BASE_URL}/status-convites`,
+
+  },
+  PERFIL: {
+    CONVITE: `${BASE_URL}/user-types`,
+
+  },
+
 };

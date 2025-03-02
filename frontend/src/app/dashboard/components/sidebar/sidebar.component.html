@@ -1,0 +1,34 @@
+<mat-nav-list class="sidebar-menu">
+  <mat-list-item routerLink="/"   id="home">
+    <mat-icon>home</mat-icon> Dashboard
+  </mat-list-item>
+  <mat-list-item (click)="toggleSubmenu('convites')">
+    <mat-icon>mail</mat-icon> Convites
+    <mat-icon style="margin-left: auto;">{{ submenus.convites ? 'expand_less' : 'expand_more' }}</mat-icon>
+  </mat-list-item>
+  <mat-list *ngIf="submenus.convites">
+    <mat-list-item routerLink="/dashboard/convites/convidar">
+      <mat-icon>mail_outline</mat-icon> Convidar
+    </mat-list-item>
+    <mat-list-item routerLink="/dashboard/convites/status">
+      <mat-icon>list_alt</mat-icon> Convites Status
+    </mat-list-item>
+  </mat-list>
+
+  <mat-list-item (click)="toggleSubmenu('perfis')">
+    <mat-icon>account_circle</mat-icon> Perfis
+    <mat-icon style="margin-left: auto;">{{ submenus.perfis ? 'expand_less' : 'expand_more' }}</mat-icon>
+  </mat-list-item>
+  <mat-list *ngIf="submenus.perfis">
+    <mat-list-item routerLink="/dashboard/perfis/listar">
+      <mat-icon>people</mat-icon> Perfis
+    </mat-list-item>
+    <mat-list-item routerLink="/dashboard/perfis/cadastrar">
+      <mat-icon>add</mat-icon> Cadastrar Perfil
+    </mat-list-item>
+  </mat-list>
+
+  <mat-list-item routerLink="/dashboard/gerencial">
+    <mat-icon>bar_chart</mat-icon> Gerencial
+  </mat-list-item>
+</mat-nav-list>
