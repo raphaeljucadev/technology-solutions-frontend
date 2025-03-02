@@ -19,6 +19,7 @@ export class AtualizarPerfilComponent implements OnInit {
   userTypes: any[] = [];
   showPasswordField: boolean = false;
   perfilName: string | null = null;
+  showPassword = false;
   id:string | null = null;
   @ViewChild(MessageComponent) messageComponent!: MessageComponent;
 
@@ -110,7 +111,9 @@ export class AtualizarPerfilComponent implements OnInit {
 
   }
 
-
+  togglePasswordVisibility() {
+    this.showPassword = !this.showPassword;
+  }
   onUserTypeChange(event: any): void {
     const selectedUserId = event.target.value;
     const selectedUserType = this.userTypes.find(type => type.id === parseInt(selectedUserId));
