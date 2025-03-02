@@ -1,0 +1,28 @@
+<div class="container">
+  <div *ngIf="loading" class="loading">
+    <p>Carregando informações...</p>
+  </div>
+
+  <div *ngIf="!loading && colaborador" class="card">
+    <h2>👤 Informações do Colaborador</h2>
+    <p><strong>Nome:</strong> {{ colaborador?.name }}</p>
+    <p><strong>Email:</strong> {{ colaborador?.email }}</p>
+    <p><strong>CPF:</strong> {{ colaborador?.cpf }}</p>
+
+    <p><strong>Perfil:</strong> {{ colaborador?.user_type?.name }}</p>
+
+    <h3>📞 Telefones</h3>
+    <ul>
+      <li *ngFor="let telefone of colaborador?.telefones">
+        ({{ telefone.ddd }}) {{ telefone.celular }}
+      </li>
+    </ul>
+
+    <h3>🏠 Endereço</h3>
+    <p><strong>CEP:</strong> {{ colaborador?.endereco?.cep }}</p>
+    <p><strong>UF:</strong> {{ colaborador?.endereco?.uf }}</p>
+    <p><strong>Cidade:</strong> {{ colaborador?.endereco?.localidade }}</p>
+    <p><strong>Bairro:</strong> {{ colaborador?.endereco?.bairro }}</p>
+    <p><strong>Rua:</strong> {{ colaborador?.endereco?.logradouro }}</p>
+  </div>
+</div>

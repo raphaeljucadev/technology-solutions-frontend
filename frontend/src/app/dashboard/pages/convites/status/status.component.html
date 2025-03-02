@@ -1,0 +1,21 @@
+
+<app-message #message></app-message>
+
+<h2>Lista de Convites</h2>
+
+<table *ngIf="convites.length > 0">
+  <thead>
+    <tr>
+      <th>Email</th>
+      <th>Status</th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr *ngFor="let convite of convites">
+      <td>{{ convite.email }}</td>
+      <td>{{ convite.status.name }}</td>
+    </tr>
+  </tbody>
+</table>
+
+<p *ngIf="convites.length === 0">Nenhum convite encontrado.</p>

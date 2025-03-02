@@ -1,18 +1,18 @@
 import { ComponentFixture, TestBed } from '@angular/core/testing';
 
-import { InviteComponent } from './invite.component';
+import { AtualizarPerfilComponent } from './atualizar-perfil.component';
 
-describe('InviteComponent', () => {
-  let component: InviteComponent;
-  let fixture: ComponentFixture<InviteComponent>;
+describe('AtualizarPerfilComponent', () => {
+  let component: AtualizarPerfilComponent;
+  let fixture: ComponentFixture<AtualizarPerfilComponent>;
 
   beforeEach(async () => {
     await TestBed.configureTestingModule({
-      imports: [InviteComponent]
+      imports: [AtualizarPerfilComponent]
     })
     .compileComponents();
     
-    fixture = TestBed.createComponent(InviteComponent);
+    fixture = TestBed.createComponent(AtualizarPerfilComponent);
     component = fixture.componentInstance;
     fixture.detectChanges();
   });

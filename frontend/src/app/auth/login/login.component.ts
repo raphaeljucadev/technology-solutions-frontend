@@ -1,10 +1,10 @@
-import { Component, ViewChild,inject } from '@angular/core';
+import { Component, ViewChild, inject } from '@angular/core';
 import { FormBuilder, FormGroup, Validators, ReactiveFormsModule } from '@angular/forms';
 import { CommonModule } from '@angular/common';
 import { NgxMaskDirective, provideNgxMask } from 'ngx-mask';
 import { AuthService } from '../../core/services/auth/auth.service';
 import { MessageComponent } from '../../message/message.component';
-
+import { Router } from '@angular/router';
 
 @Component({
   selector: 'app-login',
@@ -15,25 +15,26 @@ import { MessageComponent } from '../../message/message.component';
   providers: [provideNgxMask()]
 })
 export class LoginComponent {
-    @ViewChild(MessageComponent) messageComponent!: MessageComponent;
+  @ViewChild(MessageComponent) messageComponent!: MessageComponent;
 
   loginForm: FormGroup;
 
   private fb = inject(FormBuilder);
   private authService = inject(AuthService);
+  private router = inject(Router);
   showPassword = false;
 
   constructor() {
     this.loginForm = this.fb.group({
       cpf: ['', [Validators.required, Validators.minLength(11)]],
       password: ['', [Validators.required]]
-
     });
   }
 
   togglePasswordVisibility() {
     this.showPassword = !this.showPassword;
   }
+
   get f() {
     return this.loginForm.controls;
   }
@@ -44,13 +45,8 @@ export class LoginComponent {
 
   onSubmit() {
     if (this.loginForm.valid) {
-
-
-
       const formValue = this.loginForm.value;
-
       const cpfFormatado = this.formatCPF(formValue.cpf);
-
 
       const payload = {
         cpf: cpfFormatado,
@@ -59,7 +55,10 @@ export class LoginComponent {
 
       this.authService.login(payload).subscribe({
         next: (response) => {
-          this.messageComponent.showMessage('Sucesso!', 'Login realizado com sucesso!', 'success');
+          localStorage.setItem('userId', response.user.id);
+          localStorage.setItem('token', response.token);
+
+          this.router.navigateByUrl('/dashboard');
         },
         error: (error) => {
           const errorMessage = error.error?.message || 'Erro ao realizar login!';
@@ -69,7 +68,7 @@ export class LoginComponent {
     }
   }
 
-
   onForgotPassword() {
+    // Implemente a lógica para lidar com a recuperação de senha
   }
 }
