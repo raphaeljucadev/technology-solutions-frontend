@@ -46,7 +46,6 @@ form: FormGroup;
 
       this.perfisService.cadastrarPerfil(name,token).subscribe({
         next: (response: HttpResponse<any>) => {
-          console.log(response);
           if (response.status === 201) {
             this.messageComponent.showMessage('Sucesso:', 'Cadastro realizado com sucesso!', 'success');
             this.form.reset(); // Limpa o formulário após o sucesso

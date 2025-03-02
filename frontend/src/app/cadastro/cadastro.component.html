@@ -1,0 +1,62 @@
+<app-message #message></app-message>
+
+
+<div class="form-container">
+  <div *ngIf="errorMessage" class="error-card">
+    <div class="error-content">
+      <i class="fas fa-exclamation-triangle error-icon"></i>
+      <p class="error-text">{{ errorMessage }}</p>
+    </div>
+  </div>
+
+  <div *ngIf="!loading && !errorMessage" class="form-wrapper">
+    <form [formGroup]="cadastroForm" (ngSubmit)="onSubmit()" class="modern-form">
+      <div class="form-group">
+        <label for="nome" class="form-label">Nome</label>
+        <input id="nome" formControlName="nome" type="text" required maxlength="100" class="form-input" />
+      </div>
+
+      <div class="form-group">
+        <label for="email" class="form-label">E-mail</label>
+        <input id="email" formControlName="email" type="email" [value]="emailPreenchido" readonly class="form-input" />
+      </div>
+
+      <div class="form-group">
+        <label for="cpf" class="form-label">CPF</label>
+        <input id="cpf" formControlName="cpf" type="text" mask="000.000.000-00" class="form-input" />
+      </div>
+
+      <div class="form-group">
+        <label for="celular" class="form-label">Celular</label>
+        <input id="celular" formControlName="celular" type="text" mask="(00) 00000-0000" class="form-input" />
+      </div>
+
+      <div class="form-group">
+        <label for="cep" class="form-label">CEP</label>
+        <input id="cep" formControlName="cep" type="text" mask="00000-000" class="form-input" (blur)="buscarEndereco()" />
+      </div>
+
+      <div class="form-group">
+        <label for="uf" class="form-label">UF</label>
+        <input id="uf" formControlName="uf" type="text" maxlength="2" class="form-input" />
+      </div>
+
+      <div class="form-group">
+        <label for="localidade" class="form-label">Localidade</label>
+        <input id="localidade" formControlName="localidade" type="text" maxlength="30" class="form-input" />
+      </div>
+
+      <div class="form-group">
+        <label for="bairro" class="form-label">Bairro</label>
+        <input id="bairro" formControlName="bairro" type="text" maxlength="40" class="form-input" />
+      </div>
+
+      <div class="form-group">
+        <label for="logradouro" class="form-label">Logradouro</label>
+        <input id="logradouro" formControlName="logradouro" type="text" maxlength="100" class="form-input" />
+      </div>
+
+      <button type="submit" class="submit-button">Cadastrar</button>
+    </form>
+  </div>
+</div>

@@ -81,7 +81,6 @@ export class AtualizarPerfilComponent implements OnInit {
       const formData = this.perfilForm.value;
       this.apiService.updateUserProfile(this.id, formData).subscribe({
         next: (response: any) => {  // Altere o tipo de response para 'any'
-          console.log(response);  // Verifique o formato da resposta
           if (response.code === 200) {  // Use 'code' em vez de 'status'
             // Sucesso - Perfil atualizado
             this.messageComponent.showMessage('Sucesso:', response.message, 'success');

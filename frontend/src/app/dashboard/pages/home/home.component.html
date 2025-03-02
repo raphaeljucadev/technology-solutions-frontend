@@ -1,1 +1,10 @@
-<p>home works!</p>
+<div class="container">
+  <h1>Notícias Falsas sobre RH e Ajuda aos Trabalhadores</h1>
+  <div class="card-grid">
+    <div class="card" *ngFor="let news of newsList">
+      <img [src]="news.imageUrl" alt="Imagem da notícia">
+      <h2>{{ news.title }}</h2>
+      <p>{{ news.description }}</p>
+    </div>
+  </div>
+</div>
