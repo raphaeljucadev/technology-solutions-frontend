@@ -14,7 +14,7 @@ export class ConvitesService {
       'Authorization': `Bearer ${token}` // Adiciona o Bearer Token no cabeçalho
     });
 
-    return this.http.post(API_ENDPOINTS.CONVITES.CONVITE, { email,user_id }, { headers }); // Envia o email e o cabeçalho
+    return this.http.post(API_ENDPOINTS.CONVITES.CONVITE, { email,user_id }, { headers , observe: 'response'}); // Envia o email e o cabeçalho
   }
 
   listarConvites(token: string): Observable<any> {

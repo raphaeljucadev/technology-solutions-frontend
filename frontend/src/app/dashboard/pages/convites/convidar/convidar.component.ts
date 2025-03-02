@@ -4,6 +4,7 @@ import { CommonModule } from '@angular/common';
 import { HttpClient } from '@angular/common/http';
 import { ConvitesService } from '../../../../core/services/convites/convites.service';
 import { MessageComponent } from '../../../../message/message.component';
+import { HttpResponse } from '@angular/common/http'; // Importe HttpResponse
 
 @Component({
   selector: 'app-convidar',
@@ -43,7 +44,7 @@ export class ConvidarComponent {
       }
 
       this.convitesService.enviarConvite(email,token,user_id).subscribe({
-        next: (response) => {
+        next: (response: HttpResponse<any>) => {
           if (response.status === 201) {
             this.messageComponent.showMessage('Sucesso:', 'Convite enviado com sucesso!', 'success');
             this.form.reset(); // Limpa o formulário após o sucesso

@@ -1,1 +1,19 @@
-<p>listar works!</p>
+<app-message #message></app-message>
+
+
+<h2>Lista de Status</h2>
+
+<table *ngIf="status.length > 0">
+  <thead>
+    <tr>
+      <th>Nome</th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr *ngFor="let statu of status">
+      <td>{{ statu.name }}</td>
+    </tr>
+  </tbody>
+</table>
+
+<p *ngIf="status.length === 0">Nenhum status encontrado.</p>

@@ -12,7 +12,7 @@ export const API_ENDPOINTS = {
 
   },
   PERFIL: {
-    CONVITE: `${BASE_URL}/user-types`,
+    user_types: `${BASE_URL}/user-types`,
 
   },
 

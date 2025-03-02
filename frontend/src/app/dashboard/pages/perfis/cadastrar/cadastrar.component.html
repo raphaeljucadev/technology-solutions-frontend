@@ -1,1 +1,10 @@
-<p>cadastrar works!</p>
+<app-message #message></app-message>
+
+<form [formGroup]="form" (ngSubmit)="onSubmit()">
+  <label for="perfil">Nome do Perfil:</label>
+  <input type="perfil" id="perfil" formControlName="perfil">
+  <div *ngIf="form.get('email')?.invalid && (form.get('email')?.dirty || form.get('email')?.touched)">
+    <div *ngIf="form.get('email')?.errors?.['required']">Nome é obrigatório.</div>
+  </div>
+  <button type="submit" [disabled]="form.invalid">Confirmar</button>
+</form>
