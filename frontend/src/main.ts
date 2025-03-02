@@ -10,6 +10,8 @@ import { ConvidarComponent } from './app/dashboard/pages/convites/convidar/convi
 import { StatusComponent } from './app/dashboard/pages/convites/status/status.component';
 import { ListarComponent } from './app/dashboard/pages/perfis/listar/listar.component';
 import { CadastrarComponent } from './app/dashboard/pages/perfis/cadastrar/cadastrar.component';
+import { AtualizarPerfilComponent } from './app/dashboard/pages/gerencial/atualizar-perfil/atualizar-perfil.component';
+import { InformacoesComponent } from './app/dashboard/pages/gerencial/informacoes/informacoes.component';
 import { GerencialComponent } from './app/dashboard/pages/gerencial/gerencial.component';
 import { provideAnimations } from '@angular/platform-browser/animations';
 import { authGuard } from './app/core/services/auth/auth.guard';
@@ -33,6 +35,9 @@ bootstrapApplication(AppComponent, {
           { path: 'perfis/listar', component: ListarComponent },
           { path: 'perfis/cadastrar', component: CadastrarComponent },
           { path: 'gerencial', component: GerencialComponent },
+          { path: 'gerencial/atualizar/:id/:perfilName', component: AtualizarPerfilComponent },
+          { path: 'gerencial/informacoes/:id', component: InformacoesComponent },
+
         ]
       },
       { path: '**', redirectTo: 'login' }

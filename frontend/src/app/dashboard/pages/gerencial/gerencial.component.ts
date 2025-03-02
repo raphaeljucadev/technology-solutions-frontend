@@ -1,17 +1,20 @@
 import { Component, inject, OnInit } from '@angular/core';
 import { ColaboradoresService } from '../../../core/services/colaboradores/colaboradores.service';
 import { CommonModule } from '@angular/common';
-import { FormsModule } from '@angular/forms';
+import { FormsModule , ReactiveFormsModule } from '@angular/forms';
 import { MatTableModule } from '@angular/material/table';
-import { Observable, forkJoin } from 'rxjs';
+import { Observable, BehaviorSubject, forkJoin } from 'rxjs';
 import { map } from 'rxjs/operators';
 import * as XLSX from 'xlsx';
+import { Router } from '@angular/router';
 
 interface Colaborador {
   id: number;
   name: string;
   email: string;
   cpf: string;
+  user_type_id: number;
+
 }
 
 interface ApiResponse {
@@ -21,34 +24,59 @@ interface ApiResponse {
   next_page_url: string | null;
   per_page: number;
   total: number;
+  user_type_id: number;
 }
 
 @Component({
   selector: 'app-gerencial',
   standalone: true,
-  imports: [CommonModule, FormsModule, MatTableModule],
+  imports: [CommonModule, FormsModule, MatTableModule, ReactiveFormsModule],
   templateUrl: './gerencial.component.html',
   styleUrl: './gerencial.component.css'
 })
 export class GerencialComponent implements OnInit {
   private colaboradoresService = inject(ColaboradoresService);
-  colaboradores$: Observable<Colaborador[]> | undefined;
+  private colaboradoresSubject = new BehaviorSubject<Colaborador[]>([]);
+  colaboradores$: Observable<Colaborador[]> = this.colaboradoresSubject.asObservable();
+private router = inject(Router);
   currentPage = 1;
   totalPages = 0;
   nextPageUrl: string | null = null;
   prevPageUrl: string | null = null;
   searchQuery = '';
-  displayedColumns: string[] = ['name', 'email', 'cpf', 'visualizar', 'editar'];
+  displayedColumns: string[] = ['name', 'email', 'cpf', 'perfil', 'visualizar', 'editar'];
   private initialData: Colaborador[] = [];
+  searchTerm: string = '';
+  userTypes: any[] = [];
 
   ngOnInit(): void {
+    this.loadUserTypes();
     this.loadInitialData();
   }
+
+
+  // Função para carregar os tipos de usuários
+  loadUserTypes(): void {
+    this.colaboradoresService.getUserTypes().subscribe({
+      next: (response) => {
+        this.userTypes = response;
+      },
+      error: (error) => {
+        console.error('Erro ao carregar tipos de usuários:', error);
+      }
+    });
+  }
+
+    // Função para pegar o nome do tipo de usuário com base no ID
+    getUserTypeName(userTypeId: number): string {
+      const userType = this.userTypes.find(type => type.id === userTypeId);
+      return userType ? userType.name : 'Desconhecido';
+    }
+
 
   loadInitialData(): void {
     this.colaboradoresService.getInitialData().subscribe({
       next: (initialData) => {
-        console.log('Initial Data:', initialData);
         this.initialData = initialData;
         this.loadColaboradores();
       },
@@ -57,6 +85,7 @@ export class GerencialComponent implements OnInit {
       }
     });
   }
+
 
   loadColaboradores(): void {
     this.colaboradoresService.getColaboradores(this.currentPage, this.searchQuery).pipe(
@@ -67,7 +96,7 @@ export class GerencialComponent implements OnInit {
         return response.data;
       })
     ).subscribe(data => {
-      this.colaboradores$ = new Observable(observer => observer.next(data));
+      this.colaboradoresSubject.next(data);
     });
   }
 
@@ -91,29 +120,70 @@ export class GerencialComponent implements OnInit {
   }
 
   visualizarDados(element: Colaborador): void {
-    console.log('Visualizar Dados:', element);
+    this.router.navigate([`dashboard/gerencial/informacoes`, element.id]);
+
   }
 
+
   editarPerfil(element: Colaborador): void {
-    console.log('Editar Perfil:', element);
+    const perfilName = this.getUserTypeName(element.user_type_id);
+
+
+    this.router.navigate([`dashboard/gerencial/atualizar`, element.id, perfilName]);
+
   }
 
   exportToExcel(): void {
-    let allPages: Observable<Colaborador[]>[] = [];
-    for (let page = 1; page <= this.totalPages; page++) {
-      allPages.push(
-        this.colaboradoresService.getColaboradores(page, this.searchQuery).pipe(
-          map(response => response.data)
-        )
-      );
-    }
+    const currentData = this.colaboradoresSubject.getValue();
 
-    forkJoin(allPages).subscribe(pages => {
-      const allData = pages.reduce((acc, val) => acc.concat(val), []);
-      const worksheet = XLSX.utils.json_to_sheet(allData);
+    if (currentData.length > 0) {
+      // Usa os dados filtrados da pesquisa
+      const worksheet = XLSX.utils.json_to_sheet(currentData);
       const workbook = XLSX.utils.book_new();
       XLSX.utils.book_append_sheet(workbook, worksheet, 'Colaboradores');
       XLSX.writeFile(workbook, 'colaboradores.xlsx');
+    } else {
+      // Caso contrário, busca todas as páginas novamente
+      let allPages: Observable<Colaborador[]>[] = [];
+      for (let page = 1; page <= this.totalPages; page++) {
+        allPages.push(
+          this.colaboradoresService.getColaboradores(page, this.searchQuery).pipe(
+            map(response => response.data)
+          )
+        );
+      }
+
+      forkJoin(allPages).subscribe(pages => {
+        const allData = pages.reduce((acc, val) => acc.concat(val), []);
+        const worksheet = XLSX.utils.json_to_sheet(allData);
+        const workbook = XLSX.utils.book_new();
+        XLSX.utils.book_append_sheet(workbook, worksheet, 'Colaboradores');
+        XLSX.writeFile(workbook, 'colaboradores.xlsx');
+      });
+    }
+  }
+  performSearch(): void {
+    this.searchQuery = this.searchTerm.trim(); // Sincroniza searchQuery com searchTerm
+
+    if (!this.searchQuery) {
+      // Se o campo estiver vazio, recarrega os dados iniciais
+      this.loadInitialData();
+      return;
+    }
+
+    this.colaboradoresService.searchColaboradores(this.searchQuery).subscribe({
+      next: (response) => {
+        this.colaboradoresSubject.next(response.data);
+        this.initialData = response.data;
+        this.totalPages = 1;
+        this.currentPage = 1;
+      },
+      error: (error) => {
+        console.error('Erro na pesquisa:', error);
+      }
     });
   }
+
+
+
 }

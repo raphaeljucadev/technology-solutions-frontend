@@ -1,0 +1,20 @@
+<app-message #message></app-message>
+
+
+<form [formGroup]="perfilForm" (ngSubmit)="onSubmit()">
+  <div>
+    <label for="user_type_id">Tipo de Perfil</label>
+    <select id="user_type_id" formControlName="user_type_id" (change)="onUserTypeChange($event)">
+      <option *ngFor="let userType of userTypes" [value]="userType.id">{{ userType.name }}</option>
+    </select>
+  </div>
+
+  <div *ngIf="showPasswordField">
+    <label for="password">Senha</label>
+    <input type="password" id="password" formControlName="password">
+  </div>
+
+  <div>
+    <button type="submit" [disabled]="!perfilForm.valid">Atualizar Perfil</button>
+  </div>
+</form>

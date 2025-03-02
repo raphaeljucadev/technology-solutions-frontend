@@ -17,6 +17,8 @@ export const API_ENDPOINTS = {
   },
   COLABORADORES: {
     colaborador: `${BASE_URL}/colaboradores`,
+    search: `${BASE_URL}/colaboradores/search`,
+    get_status:`${BASE_URL}/user-types`,
 
   },
 
