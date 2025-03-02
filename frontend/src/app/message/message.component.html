@@ -1,0 +1,7 @@
+<div *ngIf="show" class="message-box" [ngClass]="type">
+  <div class="message-content">
+    <h2>{{ title }}</h2>
+    <p>{{ message }}</p>
+  </div>
+  <button (click)="close()">✖</button>
+</div>
