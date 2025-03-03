@@ -1,0 +1,25 @@
+* 5cc9e09  (HEAD -> develop, origin/develop) config-final raphael jucá
+* f373558  correcao-api-producao raphael jucá
+*   6e7a188  (origin/main, origin/HEAD, main) Merge branch 'release/cadastro-module' raphael jucá
+|\  
+| * b482a45  (origin/release/cadastro-module, release/cadastro-module) cadastro-module raphael jucá
+|/  
+*   42a89b4  Merge branch 'release/dashboard-module' raphael jucá
+|\  
+| * e89795a  (origin/release/dashboard-module) correcao-layout-atualizar raphael jucá
+| * fbdd71c  new-perfil-editar raphael jucá
+| * d148655  colaboradores-dados raphael jucá
+| * b7acd9a  dashboard-perfis raphael jucá
+| * 0c81b29  dashboard-convites raphael jucá
+|/  
+*   0259056  Merge branch 'release/auth-module' raphael jucá
+|\  
+| * 4a8de2f  (origin/release/auth-module) auth-module-implementation raphael jucá
+| * 9cc184a  correcao-arquivos raphael jucá
+|/  
+*   3344fe9  Merge branch 'release/v1.0.0' raphael jucá
+|\  
+| * 780e994  (origin/release/v1.0.0) initial-component-structure raphael jucá
+|/  
+* 99fe588  config-angular raphael jucá
+* 70b2bee  Initial commit Raphael de oliveira Jucá

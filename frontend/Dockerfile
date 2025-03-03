@@ -1,17 +1,12 @@
-# Imagem base
-FROM node:16
+FROM node:18
 
-# Definindo o diretório de trabalho
 WORKDIR /app
 
-# Copiando todos os arquivos do projeto Angular para o container
-COPY . /app
-
-# Instalando as dependências do Angular
+COPY package.json package-lock.json ./
 RUN npm install
 
-# Expondo a porta onde o Angular vai rodar
+COPY . .
+
 EXPOSE 4200
 
-# Comando para rodar o servidor de desenvolvimento do Angular
 CMD ["npm", "start"]

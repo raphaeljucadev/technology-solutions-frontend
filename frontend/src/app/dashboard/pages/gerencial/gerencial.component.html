@@ -1,7 +1,7 @@
 <input type="text" [(ngModel)]="searchTerm" placeholder="Pesquisar...">
 <button (click)="performSearch()">Pesquisar</button>
 
-<table mat-table [dataSource]="colaboradores$ | async" class="mat-elevation-z8">
+<table mat-table [dataSource]="(colaboradores$ | async) || []" class="mat-elevation-z8">
 
   <ng-container matColumnDef="name">
     <th mat-header-cell *matHeaderCellDef> Nome </th>
